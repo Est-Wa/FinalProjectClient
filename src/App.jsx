@@ -6,15 +6,12 @@ import purple from '@mui/material/colors/purple';
 import { AuthContext, AuthContextProvider } from './context/authContex'
 import { useContext } from "react";
 import Routes from './Routes'
-import ActionAreaCard from "./components/Learning/Lesson/Game/Question/FirstStage.jsx";
 
 const theme = createTheme({
   palette: {
     primary: purple,
-  },
+  }, 
 });
-
-
 
 function App() {
   return (
@@ -24,7 +21,6 @@ function App() {
           <CssBaseline />
           <Router>
             <Routes />
-            <ActionAreaCard/>
           </Router>
         </ThemeProvider>
       </AuthContextProvider>

@@ -10,14 +10,12 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import kiwi from './kiwi.jpg'
 
-export default function ActionAreaCard() {
-    const words = ['בננה', 'תפוז', 'תפוח', 'קיוי']
+export default function ActionAreaCard(props) {
+    const { activeStep, setActiveStep } = props;
+
+    const words = [['בננה', 'תפוז', 'תפוח', 'קיוי'],['zxcvb', 'zxcvbnm,', 'zxcvbn', 'zxcvb'],['בננewrה', 'תwreפוז', 'תפewrוח', 'קיוי'],['af', 'asdjf', 'aklsdjfl', 'fksdjao']]
     return (
-        <Box style={{
-            position: 'absolute',
-            top: '40%',
-            left: '30%'
-        }} >
+        <Box>
             <Grid container
                 spacing={10}>
                 <Grid item >
@@ -26,11 +24,11 @@ export default function ActionAreaCard() {
                         direction="column"
                         alignItems="center">
                         <>
-                            {words.map((word, index) => {
-                                return(
-                                <Grid item key={index} style={{ width: '100%', margin: '10px' }} >
-                                    <Button>{word}</Button>
-                                </Grid>)
+                            {words[activeStep-1].map((word, index) => {
+                                return (
+                                    <Grid item key={index} style={{ width: '100%', margin: '10px' }} >
+                                        <Button variant="outlined" onClick={() => (setActiveStep(activeStep + 1))}>{word}</Button>
+                                    </Grid>)
                             })}
                         </>
                     </Grid>
