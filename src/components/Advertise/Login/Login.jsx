@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
 import { useContext } from "react";
-import { AuthContext } from '../../../context/authContex'
+import { AuthContext } from '../../../context/authContext'
 import { useNavigate } from "react-router-dom";
 
 
@@ -27,15 +27,18 @@ export default function Login() {
 
 
 
-    const { LogedIn, setLogedIn } = useContext(AuthContext)
+    const { LogedIn, setLogedIn,login } = useContext(AuthContext)
 
     const [open, setOpen] = React.useState(false);
+    const [username, setUsername] = React.useState();
+    const [password, setPassword] = React.useState();
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    const closeStepper = () => {
+    const submit = async () => {
         handleClose();
         setLogedIn(true);
         navigate()
+        await login(username, password)
     }
     const style = {
         position: 'absolute',
@@ -46,7 +49,7 @@ export default function Login() {
         backgroundColor: 'white',
         padding: '2%'
       }
-
+ 
     return (
         
         <>
@@ -70,7 +73,7 @@ export default function Login() {
                         }}
                     >
 
-                        <Box component="form" onSubmit={closeStepper} noValidate sx={{ mt: 1 }}>
+                        <Box component="form" onSubmit={submit} noValidate sx={{ mt: 1 }}>
                             <TextField
                                 margin="normal"
                                 required
@@ -78,8 +81,9 @@ export default function Login() {
                                 id="userName"
                                 label="Email Address"
                                 name="userName"
-                                autoComplete="user-name"
-                                autoFocus
+                                autoComplete="username"
+                                defaultValue=''
+                                onBlur={(e)=>setUsername(e.target.value)}
                             />
                             <TextField
                                 margin="normal"
@@ -90,6 +94,8 @@ export default function Login() {
                                 type="password"
                                 id="password"
                                 autoComplete="current-password"
+                                defaultValue=''
+                                onBlur={(e)=>setPassword(e.target.value)}
                             />
                         
 

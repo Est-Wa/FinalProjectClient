@@ -20,7 +20,6 @@ import  Login  from './Login/Login';
 
 
 
-
 const pages = ['Trial', 'Recommendations', 'Our vision'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 

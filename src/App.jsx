@@ -1,9 +1,9 @@
 import { BrowserRouter as Router,  Route } from "react-router-dom"
-import Login from "./components/Addvertise/Login/Login.jsx";
+import Login from "./components/Advertise/Login/Login.jsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import purple from '@mui/material/colors/purple';
-import { AuthContext, AuthContextProvider } from './context/authContex'
+import { AuthContext, AuthContextProvider } from './context/authContext'
 import { useContext } from "react";
 import Routes from './Routes'
 

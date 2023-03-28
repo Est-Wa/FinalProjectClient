@@ -1,9 +1,9 @@
-import { AuthContext, AuthContextProvider } from './context/authContex'
+import { AuthContext, AuthContextProvider } from './context/authContext'
 import { useContext } from "react";
 
-import AddAppBar from './components/Addvertise/AppBar';
+import AddAppBar from './components/Advertise/AppBar';
 import LearnAppBar from './components/Learning/AppBar';
-import AddRouts from './components/Addvertise/RoutesComponents'
+import AddRouts from './components/Advertise/RoutsComponent'
 import LearnRouts from './components/Learning/RoutesComponents'
 
 

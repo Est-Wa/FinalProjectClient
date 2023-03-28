@@ -4,10 +4,10 @@ import Game from './Lesson/Game'
 export default function Routing() {
   return <>
     <Routes>
-      <Route path="/MyLesson" element={<Game></Game>} />
-      <Route path="/PersonalArea" element={<></>} />
-      <Route path="/Ourvision" element={<></>} />
-      <Route path="/learningplan" element={<></>} />
+      <Route path="/my-lesson" element={<Game></Game>} />
+      <Route path="/personal-area" element={<></>} />
+      <Route path="/our-vision" element={<></>} />
+      <Route path="/learning-plan" element={<></>} />
     </Routes>
   </>
 }

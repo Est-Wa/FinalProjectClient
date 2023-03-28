@@ -12,12 +12,14 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from "dayjs";
 
-export default function SecondStep() {
-    const [selectedDate, setSelectedDate] = React.useState(new Date('2014-08-18T21:11:54'));
+export default function SecondStep(props) {
+    const { setUserFirstName,
+        setUserLastName,
+        setStudentFirstName,
+        setStudentLastName,
+        setBirthDate,
+        setGender } = props;
 
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-    };
     return (
         <React.Fragment>
             <Typography variant="h6" gutterBottom>
@@ -31,8 +33,10 @@ export default function SecondStep() {
                         name="firstName"
                         label="שם פרטי"
                         fullWidth
-                        autoComplete="first-name"
+                        autoComplete="given-name"
                         variant="standard"
+                        onBlur={(e)=>setUserFirstName(e.target.value)}
+                        defaultValue=''
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -42,19 +46,10 @@ export default function SecondStep() {
                         name="lastName"
                         label="שם משפחה"
                         fullWidth
-                        autoComplete="last-name"
+                        autoComplete="family-name"
                         variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={7} >
-                    <TextField
-                        required
-                        id="phoneNumber"
-                        name="phoneNumber"
-                        label="פלאפון"
-                        fullWidth
-                        autoComplete="phone-number"
-                        variant="standard"
+                        onBlur={(e)=>setUserLastName(e.target.value)}
+                        defaultValue=''
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -64,8 +59,9 @@ export default function SecondStep() {
                         name="studentFName"
                         label="שם פרטי תלמיד"
                         fullWidth
-                        autoComplete="email-address"
                         variant="standard"
+                        onBlur={(e)=>setStudentFirstName(e.target.value)}
+                        defaultValue=''
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -75,33 +71,36 @@ export default function SecondStep() {
                         name="studentLName"
                         label="שם משפחה תלמיד"
                         fullWidth
-                        autoComplete="email-address"
                         variant="standard"
+                        onBlur={(e)=>setStudentLastName(e.target.value)}
+                        defaultValue=''
                     />
                 </Grid>
 
                 <Grid item xs={7} >
-                    <LocalizationProvider dateAdapter={AdapterDayjs}  >
-
-                        <DesktopDatePicker defaultValue={dayjs(new Date())} label=" תאריך לידה" />
+                    <LocalizationProvider dateAdapter={AdapterDayjs} >
+                        <DesktopDatePicker defaultValue={dayjs(new Date())} label=" תאריך לידה" autoComplete="bday" />
                     </LocalizationProvider >
                 </Grid>
                 <Grid item xs={5} >
-                <InputLabel id="demo-simple-select-label"></InputLabel>
-                <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">מגדר</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          label="מגדר"
-        >
-          <MenuItem value={10}>זכר</MenuItem>
-          <MenuItem value={20}>נקבה</MenuItem>
-          <MenuItem value={30}>אחר</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
+                    <InputLabel id="demo-simple-select-label"></InputLabel>
+                    <Box sx={{ minWidth: 120 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">מגדר</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                label="מגדר"
+                                autoComplete="sex"
+                                onBlur={(e)=>setGender(e.target.value)}
+                                defaultValue=''
+                            >
+                                <MenuItem value={10}>זכר</MenuItem>
+                                <MenuItem value={20}>נקבה</MenuItem>
+                                <MenuItem value={30}>אחר</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Box>
                 </Grid>
             </Grid>
 

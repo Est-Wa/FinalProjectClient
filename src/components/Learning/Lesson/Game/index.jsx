@@ -4,70 +4,44 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
-import Step from '@mui/material/Step';
+import Grid from '@mui/material/Grid';
 import StepLabel from '@mui/material/StepLabel';
 import StarIcon from '@mui/icons-material/Star';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import FirstStage from './Question/FirstStage'
+import PropTypes from 'prop-types';
+import Stars from './Stars'
+import Progress from './Progress';
 
-const ColorlibConnector = styled(StepConnector)(() => ({
-  [`&.${stepConnectorClasses.alternativeLabel}`]: {
-    top: 22,
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    height: 3,
-    border: 0,
-    backgroundColor: '#eaeaf0',
-    borderRadius: 1,
-  },
-}));
-
-const ColorlibStepIconRoot = styled('div')(({ theme, ownerState }) => ({
-  backgroundColor: '#ccc',
-  zIndex: 1,
-  color: '#fff',
-  width: 50,
-  height: 50,
-  display: 'flex',
-  borderRadius: '50%',
-  justifyContent: 'center',
-  alignItems: 'center',
-}));
-
-function ColorlibStepIcon(props) {
-  const { className } = props;
-  return (
-    <ColorlibStepIconRoot className={className}>
-      <StarIcon />
-    </ColorlibStepIconRoot>
-  );
-}
-
-const steps = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-const imagesUrl = []
+const words = [['בננה', 'תפוז', 'תפוח', 'קיוי'],
+['zxcvb', 'zxcvbnm,', 'zxcvbn', 'zxcvb'],
+['zxcvb', 'zxcvbnm,', 'zxcvbn', 'dfjkaso'],
+['zxcvb', 'zxcvbnm,', 'sdkfjoeiw', 'zxcvb'],
+['zxcvb', 'sdfjoew,', 'zxcvbn', 'zxcvb'],
+['djfoi', 'zxcvbnm,', 'zxcvbn', 'zxcvb'],
+['zxcvb', 'ifjoi,', 'djfoal', 'zxcvb'],
+['בננewrה', 'תwreפוז', 'תפewrוח', 'קיוי'],
+['בננewrה', 'תwreפוז', 'תפewrוח', 'jdfhi'],
+['af', 'asdjf', 'aklsdjfl', 'fksdjao']]
 export default function CustomizedSteppers() {
+
+  const [status, setStatus] = React.useState(['','','','','','', '','','', ''])
   const [activeStep, setActiveStep] = React.useState(1);
   console.log(activeStep)
   return (
-    <Box 
-      // display="flex"
-      // alignItems="center"
-      // justifyContent="center" 
+    <Box
       style={{
         position: 'absolute',
-        top: '15%',
-        left: '30%',
+        top: '25%',
+        left: '25%',
         width: '600px', height: '600px'
       }}>
-      <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />}>
-        {steps.map((label) => (
-          <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}></StepLabel>
-          </Step>
-        ))}
-      </Stepper>
-      <br/>
-      <FirstStage setActiveStep={setActiveStep} activeStep={activeStep}></FirstStage>
+      <Grid container justifyContent="center">
+        <Progress activeStep={activeStep-1}  ></Progress>
+      </Grid>
+      <FirstStage status = {status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} words={words[activeStep - 1]}></FirstStage>
+      <br />
+      <Stars status = {status}></Stars>
     </Box>
   );
 }

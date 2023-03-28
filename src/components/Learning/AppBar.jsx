@@ -14,13 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import {AuthContext} from '../../context/authContext'
 
 
-
-const pages = ['MyLesson', 'PersonalArea', 'Ourvision', 'learningplan'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pagesRouts = ['my-lesson', 'personal-area', 'learning-plan'];
+const pages = ['השיעור שלי','אזור אישי','תוכנית למידה']
+const settings = ['פרופיל', 'אזור אישי', 'עדכונים', 'יציאה'];
 
 function ResponsiveAppBar() {
+    const {logout} = useContext(AuthContext)
+
     const navigate = useNavigate();
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -33,8 +37,9 @@ function ResponsiveAppBar() {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
+    const handleCloseNavMenu = (i) => {
         setAnchorElNav(null);
+        navigate(`/${pagesRouts[i]}`)
     };
 
     const handleCloseUserMenu = () => {
@@ -60,7 +65,7 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO &#128151;
+                        משחקריאה &#128151;
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -92,8 +97,8 @@ function ResponsiveAppBar() {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                            {pages.map((page,i) => (
+                                <MenuItem key={page} onClick={()=>handleCloseNavMenu(i)}>
                                     <Typography href={`/${page}`} textAlign="center" >{page}</Typography>
                                 </MenuItem>
                             ))}
@@ -115,15 +120,15 @@ function ResponsiveAppBar() {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        משחקריאה
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
+                        {pages.map((page,i) => (
                
                                 <Button
                                     key={page}
-                                    onClick={()=>{navigate(`/${page}`)}}
+                                    onClick={()=>{navigate(`/${pagesRouts[i]}`)}}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
                                     {page}
@@ -154,7 +159,7 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                                <MenuItem key={setting} onClick={logout}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}
