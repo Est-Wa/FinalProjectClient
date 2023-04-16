@@ -1,10 +1,10 @@
 import { AuthContext, AuthContextProvider } from './context/authContext'
 import { useContext } from "react";
 
-import AddAppBar from './components/Advertise/AppBar';
-import LearnAppBar from './components/Learning/AppBar';
-import AddRouts from './components/Advertise/RoutsComponent'
-import LearnRouts from './components/Learning/RoutesComponents'
+import UnauthAppBar from './components/Unauthorized/AppBar';
+import AuthAppBar from './components/Authorized/AppBar';
+import UnauthRouts from './components/Unauthorized/RoutsComponent'
+import AuthRouts from './components/Authorized/RoutesComponents'
 
 
 function Routes() {
@@ -13,7 +13,7 @@ function Routes() {
     console.log(LogedIn, "LogedIn")
     return (
         <>
-        {LogedIn ? <> <LearnAppBar /><LearnRouts /> </>: <> <AddAppBar /><AddRouts /> </>}</>
+        {LogedIn ? <> <AuthAppBar /><AuthRouts /> </>: <> <UnauthAppBar /><UnauthRouts /> </>}</>
 
     );
   }
