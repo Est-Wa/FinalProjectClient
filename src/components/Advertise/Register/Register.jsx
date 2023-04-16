@@ -23,15 +23,15 @@ export default function Register() {
     try {
       const res = await axios.post("http://localhost:3600/api/auth/register",
         {
-            password: password,
-            user_name: userName,
-            user_firstName: userFirstName,
-            user_lastName: userLastName,
-            email_address: emailAddress,
-            student_firstName: studentFirstName,
-            student_lastName: studentLastName,
-            birth_date: birthDate,
-            gender: gender
+          password: password,
+          user_name: userName,
+          user_firstName: userFirstName,
+          user_lastName: userLastName,
+          email_address: emailAddress,
+          student_firstName: studentFirstName,
+          student_lastName: studentLastName,
+          birth_date: birthDate,
+          gender: gender
         }
       )
       console.log(res);
@@ -65,11 +65,16 @@ export default function Register() {
     switch (step) {
       case 0:
         return <FirstStep
+          userName={userName}
+          emailAddress={emailAddress}
+          password={password}
+          handleNext={handleNext}
           setPassword={setPassword}
           setUserName={setUserName}
           setEmailAddress={setEmailAddress} />;
       case 1:
         return <SecondStep
+          handleNext={handleNext}
           setUserFirstName={setUserFirstName}
           setUserLastName={setUserLastName}
           setStudentFirstName={setStudentFirstName}
@@ -77,9 +82,13 @@ export default function Register() {
           setBirthDate={setBirthDate}
           setGender={setGender} />;
       case 2:
-        return <ThirdStep />;
+        return <ThirdStep
+          handleNext={handleNext}
+        />;
       case 3:
-        return <FourthStep />;
+        return <FourthStep
+          handleNext={handleNext}
+        />;
       default:
         throw new Error('Unknown step');
     }
@@ -155,14 +164,14 @@ export default function Register() {
                     הקודם
                   </Button>
                 )}
-
-                <Button
-                  variant="contained"
-                  onClick={handleNext}
-                  sx={{ mt: 3, ml: 1 }}
-                >
-                  {activeStep === steps.length - 1 ? 'סיום' : 'הבא'}
-                </Button>
+                {activeStep === steps.length - 1 ?
+                  <Button
+                    variant="contained"
+                    onClick={handleNext}
+                    sx={{ mt: 3, ml: 1 }}
+                  >
+                    {'סיום'}
+                  </Button> : <></>}
               </Box>
             </React.Fragment>
           )}

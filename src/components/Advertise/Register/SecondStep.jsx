@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -14,14 +15,30 @@ import dayjs from "dayjs";
 
 export default function SecondStep(props) {
     const { setUserFirstName,
+        firstName,
         setUserLastName,
+        lastName,
         setStudentFirstName,
+        sFirstName,
         setStudentLastName,
+        sLastName,
         setBirthDate,
-        setGender } = props;
-
+        birthDate,
+        setGender,
+        gender,
+        handleNext } = props;
+    const [error, setError] = React.useState(false)
+    const handleSubmit = (event) => {
+        console.log('inSubmit')
+        event.preventDefault();
+        if (!firstName || !lastName || !sFirstName || ! sLastName) {
+            setError(true);
+            return;
+        }
+        handleNext()
+    };
     return (
-        <React.Fragment>
+        <FormControl>
             <Typography variant="h6" gutterBottom>
                 פרטים אישיים
             </Typography>
@@ -35,7 +52,7 @@ export default function SecondStep(props) {
                         fullWidth
                         autoComplete="given-name"
                         variant="standard"
-                        onBlur={(e)=>setUserFirstName(e.target.value)}
+                        onBlur={(e) => setUserFirstName(e.target.value)}
                         defaultValue=''
                     />
                 </Grid>
@@ -48,7 +65,7 @@ export default function SecondStep(props) {
                         fullWidth
                         autoComplete="family-name"
                         variant="standard"
-                        onBlur={(e)=>setUserLastName(e.target.value)}
+                        onBlur={(e) => setUserLastName(e.target.value)}
                         defaultValue=''
                     />
                 </Grid>
@@ -60,7 +77,7 @@ export default function SecondStep(props) {
                         label="שם פרטי תלמיד"
                         fullWidth
                         variant="standard"
-                        onBlur={(e)=>setStudentFirstName(e.target.value)}
+                        onBlur={(e) => setStudentFirstName(e.target.value)}
                         defaultValue=''
                     />
                 </Grid>
@@ -72,7 +89,7 @@ export default function SecondStep(props) {
                         label="שם משפחה תלמיד"
                         fullWidth
                         variant="standard"
-                        onBlur={(e)=>setStudentLastName(e.target.value)}
+                        onBlur={(e) => setStudentLastName(e.target.value)}
                         defaultValue=''
                     />
                 </Grid>
@@ -92,7 +109,7 @@ export default function SecondStep(props) {
                                 id="demo-simple-select"
                                 label="מגדר"
                                 autoComplete="sex"
-                                onBlur={(e)=>setGender(e.target.value)}
+                                onBlur={(e) => setGender(e.target.value)}
                                 defaultValue=''
                             >
                                 <MenuItem value={10}>זכר</MenuItem>
@@ -103,8 +120,17 @@ export default function SecondStep(props) {
                     </Box>
                 </Grid>
             </Grid>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 
-        </React.Fragment>
+                <Button
+                    variant="contained"
+                    onClick={handleSubmit}
+                    sx={{ mt: 3, ml: 1 }}
+                >
+                    {'הבא'}
+                </Button>
+            </Box>
+        </FormControl>
     );
 }
 
