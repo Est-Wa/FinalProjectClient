@@ -75,12 +75,18 @@ export default function Register() {
       case 1:
         return <SecondStep
           handleNext={handleNext}
+          firstName={userFirstName}
           setUserFirstName={setUserFirstName}
+          lastName={userLastName}
           setUserLastName={setUserLastName}
+          sLastName={studentLastName}
           setStudentFirstName={setStudentFirstName}
+          sFirstName={studentFirstName}
           setStudentLastName={setStudentLastName}
+          birthDate={birthDate}
           setBirthDate={setBirthDate}
-          setGender={setGender} />;
+          gender={gender}
+          setGender={setGender}/>;
       case 2:
         return <ThirdStep
           handleNext={handleNext}

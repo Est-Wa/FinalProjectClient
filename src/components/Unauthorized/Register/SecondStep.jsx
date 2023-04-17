@@ -28,17 +28,18 @@ export default function SecondStep(props) {
         gender,
         handleNext } = props;
     const [error, setError] = React.useState(false)
+
     const handleSubmit = (event) => {
         console.log('inSubmit')
         event.preventDefault();
-        if (!firstName || !lastName || !sFirstName || ! sLastName) {
+        if (!firstName || !lastName || !sFirstName || !sLastName) {
             setError(true);
             return;
         }
         handleNext()
     };
     return (
-        <FormControl>
+        <FormControl >
             <Typography variant="h6" gutterBottom>
                 פרטים אישיים
             </Typography>
@@ -53,7 +54,9 @@ export default function SecondStep(props) {
                         autoComplete="given-name"
                         variant="standard"
                         onBlur={(e) => setUserFirstName(e.target.value)}
-                        defaultValue=''
+                        defaultValue={firstName}
+                        error={error && !firstName}
+                        helperText={error && !firstName ? 'Please enter your first name' : ''}
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -66,7 +69,9 @@ export default function SecondStep(props) {
                         autoComplete="family-name"
                         variant="standard"
                         onBlur={(e) => setUserLastName(e.target.value)}
-                        defaultValue=''
+                        defaultValue={lastName}
+                        error={error && !lastName}
+                        helperText={error && !lastName ? 'Please enter your last name' : ''}
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -78,7 +83,9 @@ export default function SecondStep(props) {
                         fullWidth
                         variant="standard"
                         onBlur={(e) => setStudentFirstName(e.target.value)}
-                        defaultValue=''
+                        defaultValue={sFirstName}
+                        error={error && !sFirstName}
+                        helperText={error && !sFirstName ? `Please enter the student's first name` : ''}
                     />
                 </Grid>
                 <Grid item xs={7} >
@@ -90,7 +97,9 @@ export default function SecondStep(props) {
                         fullWidth
                         variant="standard"
                         onBlur={(e) => setStudentLastName(e.target.value)}
-                        defaultValue=''
+                        defaultValue={sLastName}
+                        error={error && !sLastName}
+                        helperText={error && !sLastName ? `Please enter the student's last name` : ''}
                     />
                 </Grid>
 

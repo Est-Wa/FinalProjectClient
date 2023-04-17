@@ -21,5 +21,4 @@ export default function stars(props) {
     let status = []
     status = props.status;
     return status.map(s => <IconComponent status={s} />)
-
 }

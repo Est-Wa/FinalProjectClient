@@ -11,11 +11,13 @@ export const AuthContextProvider = ({ children }) => {
         localStorage.getItem("token") || null
     );
     const [LogedIn, setLogedIn] = useState(false);
+    const [user, setUser] = useState({});
 
     const login = async ( username, password ) => {
         console.log(`username: ${username} password: ${password}`)
         const res = await axios.post("http://localhost:3600/api/auth/login",
         {user_name:username, password:password})
+        setUser(res.user)
         setToken(res.data.accessToken)
         console.log(token)
     };
@@ -32,7 +34,7 @@ export const AuthContextProvider = ({ children }) => {
     }, [token]);
 
     return (
-        <AuthContext.Provider value={{ currentUser, setLogedIn, token, LogedIn, login, logout }}>
+        <AuthContext.Provider value={{ user, currentUser, setLogedIn, token, LogedIn, login, logout }}>
             {children}
         </AuthContext.Provider>
 

@@ -1,5 +1,4 @@
 import { BrowserRouter as Router,  Route } from "react-router-dom"
-import Login from "./components/Advertise/Login/Login.jsx";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import purple from '@mui/material/colors/purple';

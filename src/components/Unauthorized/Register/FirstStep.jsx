@@ -20,7 +20,7 @@ export default function FirstStep(props) {
     handleNext()
   };
   return (
-    <FormControl onSubmit={handleSubmit}>
+    <FormControl >
       <Typography variant="h6" gutterBottom>
         רישום למערכת
       </Typography>

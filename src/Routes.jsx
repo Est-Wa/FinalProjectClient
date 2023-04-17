@@ -1,4 +1,4 @@
-import { AuthContext, AuthContextProvider } from './context/authContext'
+import { AuthContext} from './context/authContext'
 import { useContext } from "react";
 
 import UnauthAppBar from './components/Unauthorized/AppBar';

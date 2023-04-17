@@ -12,23 +12,61 @@ import FirstStage from './Question/FirstStage'
 import PropTypes from 'prop-types';
 import Stars from './Stars'
 import Progress from './Progress';
+import axios from 'axios';
+import { AuthContext } from '../../../../context/authContext'
+import { useContext, useEffect, useState } from "react";
 
-const words = [['בננה', 'תפוז', 'תפוח', 'קיוי'],
-['zxcvb', 'zxcvbnm,', 'zxcvbn', 'zxcvb'],
-['zxcvb', 'zxcvbnm,', 'zxcvbn', 'dfjkaso'],
-['zxcvb', 'zxcvbnm,', 'sdkfjoeiw', 'zxcvb'],
-['zxcvb', 'sdfjoew,', 'zxcvbn', 'zxcvb'],
-['djfoi', 'zxcvbnm,', 'zxcvbn', 'zxcvb'],
-['zxcvb', 'ifjoi,', 'djfoal', 'zxcvb'],
-['בננewrה', 'תwreפוז', 'תפewrוח', 'קיוי'],
-['בננewrה', 'תwreפוז', 'תפewrוח', 'jdfhi'],
-['af', 'asdjf', 'aklsdjfl', 'fksdjao']]
-export default function CustomizedSteppers() {
 
-  const [status, setStatus] = React.useState(['','','','','','', '','','', ''])
-  const [activeStep, setActiveStep] = React.useState(1);
-  console.log(activeStep)
+
+async function getWords(userId) {
+  let res = await axios.get("http://localhost:3600/api/lesson/words",
+    { userId })
+  const wordsArray = res.data
+
+  const subArrays = [];
+  let i = 0;
+
+  while (i < wordsArray.length) {
+    debugger;
+    const subArray = [];
+    let j = 0;
+    while (j < 4 && i < wordsArray.length) {
+      subArray.push(wordsArray[i]);
+      i++;
+      j++;
+    }
+    subArrays.push(subArray);
+  }
+
+  // Fill remaining subarrays with empty strings
+  while (subArrays.length < 10) {
+    subArrays.push(["", "", "", ""]);
+  }
+
+  console.log(`in fetch data` + subArrays);
+
+  return subArrays;
+
+}
+
+function CustomizedSteppers() {
+
+  const { user } = useContext(AuthContext)
+  const [words, setWords] = useState();
+  const [status, setStatus] = useState(['', '', '', '', '', '', '', '', '', ''])
+  const [activeStep, setActiveStep] = useState(1);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await getWords(user.user_id);
+      console.log('this is my result'+res)
+      setWords(res)
+    }
+    fetchData()
+  }, [])
+
   return (
+    words?
     <Box
       style={{
         position: 'absolute',
@@ -37,11 +75,14 @@ export default function CustomizedSteppers() {
         width: '600px', height: '600px'
       }}>
       <Grid container justifyContent="center">
-        <Progress activeStep={activeStep-1}  ></Progress>
+        <Progress activeStep={activeStep - 1}  ></Progress>
       </Grid>
-      <FirstStage status = {status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} words={words[activeStep - 1]}></FirstStage>
+      <FirstStage status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} words={words[activeStep - 1]}></FirstStage>
       <br />
-      <Stars status = {status}></Stars>
-    </Box>
+      <Stars status={status}></Stars>
+    </Box>:
+    <div>loading</div>
   );
 }
+
+export default CustomizedSteppers;
