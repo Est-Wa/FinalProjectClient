@@ -17,7 +17,7 @@ export default function ThirdStep() {
       setCurrentButtonVariant('outlined');
     }
   }
-
+const x= ["\u1467", ]
 
   //  const vowels = [String.fromCharCode(parseInt('א&#1464;',16)), 'א&#1460;', 'א&#1461;', 'א&#1462;', 'א&#1463;', 'או&#1465;', 'א&#1467;', 'ו&#1468;', 'א&#1467;']
   return (

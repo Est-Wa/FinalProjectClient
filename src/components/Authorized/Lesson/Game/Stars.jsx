@@ -1,17 +1,19 @@
 
 import { IconButton } from '@mui/material';
-import StarIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 
 function IconComponent({ status }) {
 
     switch (status) {
-        case 'success':
-            return <StarIcon sx={{ color: '#ccff99', width: '50px', height: '50px' }} />
-        case 'error':
-            return <StarIcon sx={{ color: '#ff9999', width: '50px', height: '50px' }} />
-        case 'warning':
-            return <StarIcon sx={{ color: '#ffff33', width: '50px', height: '50px' }} />
+        case 'great':
+            return <StarIcon sx={{ color: 'green', width: '50px', height: '50px' }} />
+        case 'ok':
+            return <StarIcon sx={{ color: 'yellow', width: '50px', height: '50px' }} />
+        case 'pass':
+            return <StarIcon sx={{ color: 'orange', width: '50px', height: '50px' }} />
+        case 'fail':
+            return <StarIcon sx={{ color: 'red', width: '50px', height: '50px' }} />
         default:
             return <StarIcon sx={{ color: '#cccccc', width: '50px', height: '50px' }} />
     }

@@ -19,13 +19,18 @@ import {AuthContext} from '../../context/authContext'
 
 
 const pagesRouts = ['my-lesson', 'personal-area', 'learning-plan'];
-const pages = ['השיעור שלי','אזור אישי','תוכנית למידה']
+const pages = ['השיעור שלי','אזור אישי','תוכנית למידה'];
 const settings = ['פרופיל', 'אזור אישי', 'עדכונים', 'יציאה'];
+const navigateSettings = {'פרופיל':'profile','עדכונים':'alerts','אזור אישי':'personal-area'}
 
 function ResponsiveAppBar() {
     const {logout} = useContext(AuthContext)
 
     const navigate = useNavigate();
+
+    const handleLogout = async()=> {
+        await logout();
+    }
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -159,7 +164,10 @@ function ResponsiveAppBar() {
                             onClose={handleCloseUserMenu}
                         >
                             {settings.map((setting) => (
+                                setting == 'יציאה'?
                                 <MenuItem key={setting} onClick={logout}>
+                                    <Typography textAlign="center">{setting}</Typography>
+                                </MenuItem>:<MenuItem key={setting} onClick={()=>navigate(`/${navigateSettings[setting]}`)}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>
                             ))}

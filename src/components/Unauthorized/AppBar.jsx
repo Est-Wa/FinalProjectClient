@@ -20,7 +20,7 @@ import  Login  from './Login/Login';
 
 
 
-const pages = ['Trial', 'Recommendations', 'Our vision'];
+const pages = ['Trial', 'Recommendations', 'our-vision'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {

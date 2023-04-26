@@ -3,11 +3,10 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Stepper from '@mui/material/Stepper';
+import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
 import StepLabel from '@mui/material/StepLabel';
 import StarIcon from '@mui/icons-material/Star';
-import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import FirstStage from './Question/FirstStage'
 import PropTypes from 'prop-types';
 import Stars from './Stars'
@@ -15,26 +14,37 @@ import Progress from './Progress';
 import axios from 'axios';
 import { AuthContext } from '../../../../context/authContext'
 import { useContext, useEffect, useState } from "react";
+import { Container } from '@mui/material';
 
 
 
 async function getWords(userId) {
-  let res = await axios.get("http://localhost:3600/api/lesson/words",
-    { userId })
-  const wordsArray = res.data
-
+  let withImg=true;
+  let res
+  try{
+  res = await axios.get(`http://localhost:3600/api/lesson/words?userId=${userId}&withImg=${withImg}`)}
+  catch(err){
+    console.log(err)
+  }
+  const wordsArray = res.data.words
+  let wordWithImages = res.data.wordsWithImgs
+  // wordWithImages = wordWithImages.filter((image,i)=>{i<10})
   const subArrays = [];
   let i = 0;
 
-  while (i < wordsArray.length) {
-    debugger;
+  let k = 0
+  while (i < wordsArray.length && i<30) {
     const subArray = [];
     let j = 0;
-    while (j < 4 && i < wordsArray.length) {
+    while (j < 3 && i < wordsArray.length) {
       subArray.push(wordsArray[i]);
-      i++;
       j++;
+      i++;
     }
+    if(wordWithImages[k]){
+    subArray.push(wordWithImages[k].word)}
+    //shuffle
+    subArray.push(wordWithImages[k++])
     subArrays.push(subArray);
   }
 
@@ -47,6 +57,19 @@ async function getWords(userId) {
 
   return subArrays;
 
+}
+
+const gradeDict = {'great':5,'ok':3,'pass':1,'fail':0};
+
+function handleFinishStage(success){
+  let res
+    success.forEach(s => {
+      res+=gradeDict[s]
+    });
+    res /=10;
+    res = Math.round(res)
+    //axios setSuccess;
+    return res;
 }
 
 function CustomizedSteppers() {

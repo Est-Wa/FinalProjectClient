@@ -124,6 +124,7 @@ export default function Register() {
     <>
       <Button style={{ margin: '10px', color: 'purple', backgroundColor: 'white' }} id='lgnBtn' variant="contained" onClick={handleOpen}>Sign Up</Button>
       <Modal
+      // disableEnforceFocus 
         keepMounted
         open={open}
         onClose={handleClose}
