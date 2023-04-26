@@ -53,7 +53,7 @@ export default function Login() {
     return (
         
         <>
-            <Button id='lgnBtn' variant="contained" style={{margin:'10px' ,color:'purple' , backgroundColor:'white'}} onClick={handleOpen}>Log In</Button>
+            <Button id='lgnBtn'  variant="contained" style={{margin:'10px',color:'#DB3349' , backgroundColor:'white'}} onClick={handleOpen}>כניסה</Button>
             <Modal
                 keepMounted
                 open={open}

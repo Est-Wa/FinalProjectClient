@@ -16,7 +16,7 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import {AuthContext} from '../../context/authContext'
-
+import Logo from '../../images/logo.png';
 
 const pagesRouts = ['my-lesson', 'personal-area', 'learning-plan'];
 const pages = ['השיעור שלי','אזור אישי','תוכנית למידה'];
@@ -52,26 +52,11 @@ function ResponsiveAppBar() {
     };
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        onClick={()=>{navigate('/home')}}
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        משחקריאה &#128151;
-                    </Typography>
+                  
+                <img src={Logo} onClick={()=>{navigate('/home')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

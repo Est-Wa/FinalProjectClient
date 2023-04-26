@@ -1,5 +1,6 @@
 // import "./styles.css";
 import React from "react";
+import { Card } from "@mui/material";
 import {
   LineChart,
   Line,
@@ -54,6 +55,7 @@ const data = [
   
   export default function SuccessChart() {
     return (
+      <Card sx={{ padding: '2%', backgroundColor: '#e6faff',margin:'5%' }} >
       <LineChart
         width={500}
         height={300}
@@ -71,6 +73,6 @@ const data = [
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="success" stroke='#DB3349' />
-      </LineChart>
+      </LineChart></Card>
     );
   }

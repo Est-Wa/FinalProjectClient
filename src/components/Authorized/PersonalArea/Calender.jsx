@@ -8,6 +8,7 @@ import { PickersDay } from '@mui/x-date-pickers/PickersDay';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { Typography } from '@mui/material';
+import { Card } from '@mui/material';
 
 function getRandomNumber(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -108,9 +109,10 @@ export default function Calander() {
   };
 
   return (
-    <div>
+            <Card sx={{ padding: '2%', backgroundColor: '#e6faff' ,margin:'5%'}} >
+
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Typography>לוח הישגים</Typography>
+    <Card sx={{ marginBottom: '2%', padding: '2%', display: 'inline-flex' }}>לוח הישגים</Card>
       <DateCalendar
         defaultValue={initialValue}
         loading={isLoading}
@@ -126,6 +128,6 @@ export default function Calander() {
         }}
       />
     </LocalizationProvider>
-    </div>
+    </Card>
   );
 }

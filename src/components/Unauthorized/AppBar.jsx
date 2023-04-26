@@ -17,7 +17,7 @@ import Register from './Register/Register';
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import  Login  from './Login/Login';
-
+import Logo from '../../images/logo.png';
 
 
 const pages = ['Trial', 'Recommendations', 'our-vision'];
@@ -43,27 +43,11 @@ function ResponsiveAppBar() {
         setAnchorElUser(null);
     };
 
-    return (
-        <AppBar position="static">
+    return (<>
+        <AppBar position="sticky" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        onClick={()=>{navigate('/home')}}
-                        sx={{
-                            mr: 2,
-                            display: { xs: 'none', md: 'flex' },
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO &#128151;
-                    </Typography>
+                <img src={Logo} onClick={()=>{navigate('/home')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton
@@ -135,7 +119,7 @@ function ResponsiveAppBar() {
                     <Register></Register>
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar></>
     );
 }
 export default ResponsiveAppBar;

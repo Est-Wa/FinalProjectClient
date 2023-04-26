@@ -122,7 +122,7 @@ export default function Register() {
 
   return (
     <>
-      <Button style={{ margin: '10px', color: 'purple', backgroundColor: 'white' }} id='lgnBtn' variant="contained" onClick={handleOpen}>Sign Up</Button>
+      <Button style={{ margin: '10px', color: '#DB3349', backgroundColor: 'white' }} id='lgnBtn' variant="contained" onClick={handleOpen}>הרשמה</Button>
       <Modal
       // disableEnforceFocus 
         keepMounted
