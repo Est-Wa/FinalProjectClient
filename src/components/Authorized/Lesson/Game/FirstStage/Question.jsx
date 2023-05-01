@@ -10,37 +10,38 @@ import kiwi from './kiwi.jpg'
 
 export default function ActionAreaCard(props) {
     const { activeStep, setActiveStep, setStatus, status } = props;
-    const [trialNumber, setTrialNumber] = React.useState(1);
+    let trialNumber = 1;
 
-    // function checkAnswer(word) {
-    //     if (word == image.name) {
-    //         switch (trialNumber) {
-    //             case (1):
-    //                 setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'great' : s }));
-    //             case (2):
-    //                 setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'ok' : s }));
-    //             case (3):
-    //                 setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'pass' : s }));
-    //         }
-    //         setActiveStep(activeStep + 1); 
-    //     }
-    //     else if (trialNumber == 3) {
-    //         setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'fail' : s }));
-    //         setActiveStep(activeStep + 1);
-    //     }
-    //     setTrialNumber(trialNumber+1)
-    // }
-
-    function checkAnswer(word){
-        const arr = ['great','ok','pass','fail']
-        const randomIndex = Math.floor(Math.random() * arr.length);
-        const item = arr[randomIndex];
-        setStatus([...status].map((s, i) => { return i == activeStep - 1 ? item : s }));
-        setActiveStep(activeStep + 1); 
+    function checkAnswer(word, image) {
+        if (word == image.word) {
+            switch (trialNumber) {
+                case (1):
+                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'great' : s }));
+                    break;
+                case (2):
+                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'ok' : s }));
+                    break;
+                case (3):
+                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'pass' : s }));
+                    break;
+            }
+            if(activeStep == 10){
+                handleFinishStage(status)
+            }
+            setActiveStep(activeStep + 1);
+        }
+        else if (trialNumber == 3) {
+            setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'fail' : s }));
+            if(activeStep == 10){
+                handleFinishStage(status)
+            }
+            setActiveStep(activeStep + 1);
+        }
+        trialNumber +=1
     }
-
-    const words = props.words;
-    const image = words[4];
+    let handleFinishStage = props.handleFinishStage;
+    let words = props.words;
+    const image = props.image;
     // import imgPath from image.path;
     return (
         <Grid container
@@ -54,7 +55,8 @@ export default function ActionAreaCard(props) {
                         {words.map((word, index) => {
                             return (
                                 <Grid item key={index} style={{ width: '100%', margin: '10px' }} >
-                                    <Button variant="outlined" onClick={() => { checkAnswer(word) }}>{word}</Button>
+
+                                    <Button variant="outlined" onClick={() => { checkAnswer(word,image) }}>{word}</Button>
                                 </Grid>)
                         })}
                     </>

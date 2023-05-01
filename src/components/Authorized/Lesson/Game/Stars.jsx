@@ -4,7 +4,6 @@ import StarIcon from '@mui/icons-material/Star';
 
 
 function IconComponent({ status }) {
-
     switch (status) {
         case 'great':
             return <StarIcon sx={{ color: 'green', width: '50px', height: '50px' }} />
