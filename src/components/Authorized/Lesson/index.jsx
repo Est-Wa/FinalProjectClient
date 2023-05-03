@@ -8,10 +8,10 @@ import { useState, useEffect, useContext } from "react";
 import { AuthContext } from '../../../context/authContext'
 import axios from 'axios'
 
-async function getStage(userId) {
+async function getStage(token) {
     let res
     try {
-        res = await axios.get(`http://localhost:3600/api/lesson/stage?userId=${userId}`)
+        res = await axios.get(`http://localhost:3600/api/lesson/stage`,{headers:{Authorization:`Bearer ${token}`}})
     }
     catch (err) {
         console.log(err)
@@ -20,12 +20,12 @@ async function getStage(userId) {
 }
 
 export default function () {
-    const { user } = useContext(AuthContext)
+    const { token } = useContext(AuthContext)
 
     const [stage, setStage] = useState();
     useEffect(() => {
         async function fetchData() {
-            const res = await getStage(user.user_id);
+            const res = await getStage(token);
             console.log('The current stage is:' + res.data.current_stage)
             setStage(res.data.current_stage)
         }

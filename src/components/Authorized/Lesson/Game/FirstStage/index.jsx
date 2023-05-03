@@ -13,11 +13,11 @@ import { Container } from '@mui/material';
 
 
 
-async function getWords(userId) {
+async function getWords(userId,token) {
   let withImg = true;
   let res
   try {
-    res = await axios.get(`http://localhost:3600/api/lesson/words?userId=${userId}&withImg=${withImg}`)
+    res = await axios.get(`http://localhost:3600/api/lesson/words?withImg=${withImg}`,{headers:{Authorization:`Bearer ${token}`}})
   }
   catch (err) {
     console.log(err)
@@ -66,13 +66,13 @@ async function getWords(userId) {
 
 function CustomizedSteppers(props) {
     const {setStatus,status,activeStep,setActiveStep,handleFinishStage} = props
-  const { user } = useContext(AuthContext)
+  const { user ,token} = useContext(AuthContext)
   const [words, setWords] = useState();
   const [images, setImages] = useState();
   console.log(images)
   useEffect(() => {
     async function fetchData() {
-      const res = await getWords(user.user_id);
+      const res = await getWords(user.user_id, token);
       console.log('this is my result' + res)
       setWords(res.words)
       setImages(res.images)

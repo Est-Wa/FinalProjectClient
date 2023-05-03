@@ -26,7 +26,7 @@ export default function SecondStep(props) {
         birthDate,
         setGender,
         gender,
-        handleNext } = props;
+        handleNext, handleBack } = props;
     const [error, setError] = React.useState(false)
 
     const handleSubmit = (event) => {
@@ -128,9 +128,13 @@ export default function SecondStep(props) {
                         </FormControl>
                     </Box>
                 </Grid>
-            </Grid>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 
+            </Grid>
+
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
+                    הקודם
+                </Button>
                 <Button
                     variant="contained"
                     onClick={handleSubmit}
@@ -139,7 +143,9 @@ export default function SecondStep(props) {
                     {'הבא'}
                 </Button>
             </Box>
-        </FormControl>
+
+
+        </FormControl >
     );
 }
 

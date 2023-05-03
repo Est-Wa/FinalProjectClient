@@ -4,7 +4,6 @@ import CardMedia from "@mui/material/CardMedia";
 import Button  from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import kiwi from './kiwi.jpg'
 
 
 
@@ -69,7 +68,7 @@ export default function ActionAreaCard(props) {
                             height: 300,
                             width: 300
                         }}
-                        image={kiwi}
+                        image={`/kiwi.jpg`}
                         alt='kiwi'
                     />
                 </Card>
