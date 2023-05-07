@@ -3,19 +3,11 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 import { useState } from 'react'
 
 
-async function getVowels() {
-  let res = {}
-  try {
-    res = await axios.get(`http://localhost:3600/api/vowel`)
-  }
-  catch (err) {
-    console.log(err)
-  }
-  return res.data
-}
+
 
 export default function ThirdStep({ handleNext, vowels, setVowels ,handleBack}) {
   const [currentButtonVariant, setCurrentButtonVariant] = useState('outlined');
@@ -34,14 +26,6 @@ export default function ThirdStep({ handleNext, vowels, setVowels ,handleBack}) 
   }
 
 
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const res = await getVowels();
-  //     console.log('this is my result' + res.length)
-  //     setVowels(res)
-  //   }
-  //   fetchData()
-  // }, [])
 
   return (
     <React.Fragment>
