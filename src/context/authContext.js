@@ -4,22 +4,21 @@ import axios from "axios";
 export const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
+
     const [token, setToken] = useState(
         localStorage.getItem("token") || null
     );
-    const [LogedIn, setLogedIn] = useState(JSON.parse(localStorage.getItem("user"))?true:false);
+    const [LogedIn, setLogedIn] = useState(JSON.parse(localStorage.getItem("user")) ? true : false);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
 
     const login = async (username, password) => {
-        console.log(`username: ${username} password: ${password}`)
-        const res = await axios.post("http://localhost:3600/api/auth/login",
-            { user_name: username, password: password })
-        setUser(res.data.user)
-        setToken(res.data.accessToken)
-        
-        console.log(token)
+        console.log(`username: ${username} password: ${password}`);
+        const res = await axios.post("http://localhost:3600/api/auth/login",{ user_name: username, password: password });
+        setUser(res.data.user);
+        setToken(res.data.accessToken);
+        console.log(token);
     };
-    
+
     const logout = () => {
         setUser(null);
         setToken(null);

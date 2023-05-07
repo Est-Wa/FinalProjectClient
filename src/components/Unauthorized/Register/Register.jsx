@@ -19,7 +19,8 @@ const steps = [' רישום למערכת', 'פרטים אישיים', 'בחיר�
 
 export default function Register() {
 
-  const register = async () => {
+  const register = async (token) => {
+    let lesson;
     try {
       const res = await axios.post("http://localhost:3600/api/auth/register",
         {
@@ -30,11 +31,37 @@ export default function Register() {
           email_address: emailAddress,
           student_firstName: studentFirstName,
           student_lastName: studentLastName,
-          birth_date: birthDate,
-          gender: gender
+          birth_date: birthDate || null,
+          gender: gender != '' || null
         }
       )
       console.log(res);
+      await login(userName, password);
+    }
+    catch (err) {
+      console.log(err)
+    }
+    try {
+      console.log("--------------------------------------------------------------");
+      console.log(token);
+      const res = await axios.post("http://localhost:3600/api/lesson", { headers: { Authorization: `Bearer ${token}` } })
+      lesson = res.data.lesson_id
+    }
+    catch {
+
+    }
+    try {
+      vowels.forEach(async (x) => {
+        const res = await axios.post("http://localhost:3600/api/vowelForLesson", { vowelization_id: x, lesson_id: lesson },
+          {
+            headers:
+            {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+      })
     }
     catch (err) {
       console.log(err)
@@ -51,6 +78,8 @@ export default function Register() {
   const [birthDate, setBirthDate] = React.useState();
   const [gender, setGender] = React.useState();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [vowels, setVowels] = React.useState([]);
+  const [level, setLevel] = React.useState([]);
   const style = {
     position: 'absolute',
     top: '50%',
@@ -60,7 +89,21 @@ export default function Register() {
     backgroundColor: 'white',
     padding: '2%'
   }
-
+  function handleFinish() {
+    console.log(
+      `password: ${password}\n
+      userName: ${userName}\n
+      userLastName: ${userLastName}\n
+      userFirstName: ${userFirstName}\n
+      emailAddress: ${emailAddress}\n
+      studentFirstName: ${studentFirstName}\n
+      studentLastName: ${studentLastName}\n
+      birthDate: ${birthDate}\n
+      gender: ${gender}\n
+      vowels: ${vowels}\n
+      level: ${level}`)
+    handleNext()
+  }
   function getStepContent(step) {
     switch (step) {
       case 0:
@@ -86,14 +129,21 @@ export default function Register() {
           birthDate={birthDate}
           setBirthDate={setBirthDate}
           gender={gender}
-          setGender={setGender}/>;
+          setGender={setGender}
+          handleBack={handleBack} />;
       case 2:
         return <ThirdStep
+          vowels={vowels}
+          setVowels={setVowels}
           handleNext={handleNext}
+          handleBack={handleBack}
         />;
       case 3:
         return <FourthStep
-          handleNext={handleNext}
+          level={level}
+          setLevel={setLevel}
+          handleFinish={handleFinish}
+          handleBack={handleBack}
         />;
       default:
         throw new Error('Unknown step');
@@ -108,7 +158,7 @@ export default function Register() {
     setActiveStep(activeStep - 1);
   };
 
-  const { LogedIn, setLogedIn, logout } = useContext(AuthContext)
+  const { LogedIn, setLogedIn, logout, token, login } = useContext(AuthContext)
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -117,14 +167,14 @@ export default function Register() {
     handleClose();
     setLogedIn(true);
     navigate()
-    await register();
+    await register(token);
   }
 
   return (
     <>
       <Button style={{ margin: '10px', color: '#DB3349', backgroundColor: 'white' }} id='lgnBtn' variant="contained" onClick={handleOpen}>הרשמה</Button>
       <Modal
-      // disableEnforceFocus 
+        // disableEnforceFocus 
         keepMounted
         open={open}
         onClose={handleClose}
@@ -142,7 +192,7 @@ export default function Register() {
             ))}
           </Stepper>
           {activeStep === steps.length ? (
-            setTimeout(closeStepper, 3000),
+            setTimeout(async () => await closeStepper(), 3000),
             <React.Fragment>
               <Typography variant="h5" gutterBottom>
                 הרישום הסתיים בהצלחה!
@@ -165,21 +215,6 @@ export default function Register() {
           ) : (
             <React.Fragment>
               {getStepContent(activeStep)}
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                {activeStep !== 0 && (
-                  <Button onClick={handleBack} sx={{ mt: 3, ml: 1 }}>
-                    הקודם
-                  </Button>
-                )}
-                {activeStep === steps.length - 1 ?
-                  <Button
-                    variant="contained"
-                    onClick={handleNext}
-                    sx={{ mt: 3, ml: 1 }}
-                  >
-                    {'סיום'}
-                  </Button> : <></>}
-              </Box>
             </React.Fragment>
           )}
         </Box>

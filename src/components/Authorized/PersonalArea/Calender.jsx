@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { PickersDay } from '@mui/x-date-pickers/PickersDay';
@@ -10,103 +10,57 @@ import { DayCalendarSkeleton } from '@mui/x-date-pickers/DayCalendarSkeleton';
 import { Typography } from '@mui/material';
 import { Card } from '@mui/material';
 
-function getRandomNumber(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
 
-/**
- * Mimic fetch with abort controller https://developer.mozilla.org/en-US/docs/Web/API/AbortController/abort
- * ⚠️ No IE11 support
- */
-function fakeFetch(date, { signal }) {
-  return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => {
-      const daysInMonth = date.daysInMonth();
-      const daysToHighlight = [1, 2, 3].map(() => getRandomNumber(1, daysInMonth));
-
-      resolve({ daysToHighlight });
-    }, 500);
-
-    signal.onabort = () => {
-      clearTimeout(timeout);
-      reject(new DOMException('aborted', 'AbortError'));
-    };
-  });
-}
-
-const initialValue = dayjs('2022-04-17');
-
-function ServerDay(props) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
-
-  const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) > 0;
-
-  return (
-    <Badge
+const CustomPickersDay = styled(PickersDay, {
+  shouldForwardProp: (prop) =>
+    prop !== 'dayOfWeek' && prop !== 'isFirstDay' && prop !== 'isLastDay',
+})(({ theme, dayOfWeek, selectedDay, isLastDay }) => ({
+  ...( [1,5].includes(dayOfWeek) && {
+    borderRadius: 0,
+    backgroundColor: 'green',
+    color: theme.palette.common.white,
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.primary.dark,
+    },
     
-      key={props.day.toString()}
-      overlap="circular"
-      badgeContent={isSelected ? 'hi how are' : undefined}
-    >
-      <PickersDay style={{backgroundColor:'red'}} {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} />
-    </Badge>
+  }),
+  ...( [30,4].includes(dayOfWeek) && {
+    borderRadius: 0,
+    backgroundColor: 'red',
+    color: theme.palette.common.white,
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  }),
+  
+}));
+
+function Day(props) {
+  const { day, selectedDay, ...other } = props;
+  // if (selectedDay == null) {
+  //   return <PickersDay day={day} {...other} />;
+  // }
+  const dayOfWeek = day.date();
+  return (
+    <CustomPickersDay
+      {...other}
+      day={day}
+      selectedDay={selectedDay}
+      dayOfWeek={dayOfWeek}
+    />
   );
 }
 
-ServerDay.propTypes = {
+Day.propTypes = {
   /**
    * The date to show.
    */
   day: PropTypes.object.isRequired,
-  highlightedDays: PropTypes.arrayOf(PropTypes.number),
-  /**
-   * If `true`, day is outside of month and will be hidden.
-   */
-  outsideCurrentMonth: PropTypes.bool.isRequired,
+  selectedDay: PropTypes.object,
 };
 
-export default function Calander() {
-  const requestAbortController = React.useRef(null);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [highlightedDays, setHighlightedDays] = React.useState([1, 2, 15]);
-
-  const fetchHighlightedDays = (date) => {
-    const controller = new AbortController();
-    fakeFetch(date, {
-      signal: controller.signal,
-    })
-      .then(({ daysToHighlight }) => {
-        setHighlightedDays(daysToHighlight);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        // ignore the error if it's caused by `controller.abort`
-        if (error.name !== 'AbortError') {
-          throw error;
-        }
-      });
-
-    requestAbortController.current = controller;
-  };
-
-  React.useEffect(() => {
-    fetchHighlightedDays(initialValue);
-    // abort request on unmount
-    return () => requestAbortController.current?.abort();
-  }, []);
-
-  const handleMonthChange = (date) => {
-    if (requestAbortController.current) {
-      // make sure that you are aborting useless requests
-      // because it is possible to switch between months pretty quickly
-      requestAbortController.current.abort();
-    }
-
-    setIsLoading(true);
-    setHighlightedDays([]);
-    fetchHighlightedDays(date);
-  };
+export default function CustomDay() {
+  const [value, setValue] = React.useState(new dayjs());
 
   return (
             <Card sx={{ padding: '2%', backgroundColor: '#e6faff' ,margin:'5%'}} >
@@ -114,18 +68,16 @@ export default function Calander() {
     <LocalizationProvider dateAdapter={AdapterDayjs}>
     <Card sx={{ marginBottom: '2%', padding: '2%', display: 'inline-flex' }}>לוח הישגים</Card>
       <DateCalendar
-        defaultValue={initialValue}
-        loading={isLoading}
-        onMonthChange={handleMonthChange}
-        renderLoading={() => <DayCalendarSkeleton />}
-        slots={{
-          day: ServerDay,
-        }}
-        slotProps={{
-          day: {
-            highlightedDays,
-          },
-        }}
+      disableHighlightToday
+      disabled
+        value={null}
+        onChange={(newValue) => setValue(newValue)}
+        slots={{ day: Day }}
+        // slotProps={{
+        //   day: {
+        //     selectedDay,
+        //   },
+        // }}
       />
     </LocalizationProvider>
     </Card>
