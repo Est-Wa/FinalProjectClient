@@ -41,31 +41,7 @@ export default function Register() {
     catch (err) {
       console.log(err)
     }
-    try {
-      console.log("--------------------------------------------------------------");
-      console.log(token);
-      const res = await axios.post("http://localhost:3600/api/lesson", { headers: { Authorization: `Bearer ${token}` } })
-      lesson = res.data.lesson_id
-    }
-    catch {
 
-    }
-    try {
-      vowels.forEach(async (x) => {
-        const res = await axios.post("http://localhost:3600/api/vowelForLesson", { vowelization_id: x, lesson_id: lesson },
-          {
-            headers:
-            {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`
-            }
-          }
-        )
-      })
-    }
-    catch (err) {
-      console.log(err)
-    }
   }
   const navigate = useNavigate();
   const [password, setPassword] = React.useState();

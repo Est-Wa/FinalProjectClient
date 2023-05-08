@@ -13,11 +13,11 @@ import { Container } from '@mui/material';
 
 
 
-async function getWords(userId,token) {
+async function getWords(userId, token) {
   let withImg = true;
   let res
   try {
-    res = await axios.get(`http://localhost:3600/api/lesson/words?withImg=${withImg}`,{headers:{Authorization:`Bearer ${token}`}})
+    res = await axios.get(`http://localhost:3600/api/lesson/words?withImg=${withImg}`, { headers: { Authorization: `Bearer ${token}` } })
   }
   catch (err) {
     console.log(err)
@@ -65,8 +65,8 @@ async function getWords(userId,token) {
 
 
 function CustomizedSteppers(props) {
-    const {setStatus,status,activeStep,setActiveStep,handleFinishStage} = props
-  const { user ,token} = useContext(AuthContext)
+  const { setStatus, status, activeStep, setActiveStep, handleFinishStage } = props
+  const { user, token } = useContext(AuthContext)
   const [words, setWords] = useState();
   const [images, setImages] = useState();
   console.log(images)
@@ -82,12 +82,10 @@ function CustomizedSteppers(props) {
 
   return (
     words ?
-      
-          <Question status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} words={words[activeStep - 1]} image={images[activeStep - 1]} handleFinishStage={handleFinishStage}></Question>
-     :
+      <Question status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} words={words[activeStep - 1]} image={images[activeStep - 1]} handleFinishStage={handleFinishStage}></Question>
+      :
       <CircularProgress></CircularProgress>
   );
 }
 
 export default CustomizedSteppers;
-

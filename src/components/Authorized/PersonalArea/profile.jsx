@@ -5,16 +5,23 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CloseIcon from '@mui/icons-material/Close';
 import {useNavigate} from "react-router-dom";
+import PersonalInformation from "./personalInformation";
 
 const style = {
-    position: "absolute",
-    top: "20%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
+    display: 'flex-warp',
+    alignItems: 'center',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '40%',
+    minWidth: '300px',
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
     boxShadow: 24,
-    p: 4
+    p: 4,
 };
 
 export default function Profile() {
@@ -38,8 +45,7 @@ export default function Profile() {
                         profile
                     </Typography>
                     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        למה הגעת לדף הזה?
-                        תחזור מהרררררררר
+                       <PersonalInformation></PersonalInformation>
                     </Typography>
                 </Box>
             </Modal>

@@ -5,10 +5,10 @@ import FirstStage from './FirstStage'
 import Progress from './Progress'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import axios from 'axios';
 import { AuthContext } from '../../../../context/authContext'
 import { useContext, useEffect, useState } from "react";
 import SecondStage from "./SecondStage";
+import { LessonContext } from "../../../../context/lessonContext";
 
 const gradeDict = { 'great': 5, 'ok': 3, 'pass': 1, 'fail': 0, '': 0 };
 
@@ -27,8 +27,9 @@ export default function (props) {
   const [status, setStatus] = useState(['', '', '', '', '', '', '', '', '', ''])
   const [activeStep, setActiveStep] = useState(1);
   const { user } = useContext(AuthContext)
+  const {setSuccess,updateSuccess,nextStage} = useContext(LessonContext)
 
-  function handleFinishStage(success) {
+  async function handleFinishStage(success) {
     let res = 0
     success.forEach(s => {
       res += gradeDict[s]
@@ -36,17 +37,9 @@ export default function (props) {
     res /= 10;
     res = Math.round(res)
     alert('finished the stage😂😊😂❤')
-    try {
-      axios.put(`http://localhost:3600/api/lesson/success`, {
-        userId: user.user_id,
-        success: res
-      })
-    }
-    catch (err) {
-      console.log(err)
-    }
-    //axios setSuccess;
-    return res;
+    setSuccess(res)
+    await updateSuccess()
+    await nextStage()
   }
 
   return (

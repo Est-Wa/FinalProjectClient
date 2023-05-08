@@ -8,14 +8,20 @@ import {useNavigate} from "react-router-dom";
 import Alerts from "./alerts";
 
 const style = {
-    position: "absolute",
-    top: "20%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    p: 4
+    display: 'flex-warp',
+  alignItems: 'center',
+  flexDirection: 'column',
+  flexWrap: 'wrap',
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: '40%',
+  minWidth: '300px',
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
 };
 
 export default function AlertsPopup() {
