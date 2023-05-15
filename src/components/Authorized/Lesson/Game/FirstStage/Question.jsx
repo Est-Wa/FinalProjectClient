@@ -2,26 +2,25 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import Button  from "@mui/material/Button";
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
 
 
 export default function ActionAreaCard(props) {
-    const { activeStep, setActiveStep, setStatus, status } = props;
+    const { activeStep, setActiveStep, setStatus, status, handleFinishStage ,words,image} = props;
     let trialNumber = 1;
 
     function checkAnswer(word, image) {
-        if (word == image.word) {
+        if (word === image.word) {
             switch (trialNumber) {
                 case (1):
-                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'great' : s }));
+                    setStatus([...status].map((s, i) => i == activeStep - 1 ? 'great' : s ));
                     break;
                 case (2):
-                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'ok' : s }));
+                    setStatus([...status].map((s, i) => i == activeStep - 1 ? 'ok' : s ));
                     break;
                 case (3):
-                    setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'pass' : s }));
+                    setStatus([...status].map((s, i) => i == activeStep - 1 ? 'pass' : s ));
                     break;
             }
             if(activeStep == 10){
@@ -30,7 +29,7 @@ export default function ActionAreaCard(props) {
             setActiveStep(activeStep + 1);
         }
         else if (trialNumber == 3) {
-            setStatus([...status].map((s, i) => { return i == activeStep - 1 ? 'fail' : s }));
+            setStatus([...status].map((s, i) => i == activeStep - 1 ? 'fail' : s ));
             if(activeStep == 10){
                 handleFinishStage(status)
             }
@@ -38,9 +37,7 @@ export default function ActionAreaCard(props) {
         }
         trialNumber +=1
     }
-    let handleFinishStage = props.handleFinishStage;
-    let words = props.words;
-    const image = props.image;
+
     // import imgPath from image.path;
     return (
         <Grid container

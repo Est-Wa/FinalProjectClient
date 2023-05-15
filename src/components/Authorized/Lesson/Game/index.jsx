@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid';
 import { AuthContext } from '../../../../context/authContext'
 import { useContext, useEffect, useState } from "react";
 import SecondStage from "./SecondStage";
+import ThirdStage from './ThirdStage'
 import { LessonContext } from "../../../../context/lessonContext";
 
 const gradeDict = { 'great': 5, 'ok': 3, 'pass': 1, 'fail': 0, '': 0 };
@@ -20,6 +21,8 @@ export default function (props) {
         return <FirstStage status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} handleFinishStage={handleFinishStage}></FirstStage>
       case 2:
         return <SecondStage></SecondStage>
+        case 3:
+          return <ThirdStage status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} handleFinishStage={handleFinishStage}></ThirdStage>
     }
   }
 
@@ -45,15 +48,14 @@ export default function (props) {
   return (
     activeStep != 11 ?
       <Box
-        style={{
-          position: 'absolute',
-          top: '25%',
-          left: '25%',
-          width: '600px', height: '600px'
+        style={{   
+          margin:'auto' , 
+          width:'100%',
+          display:'grid',
+          justifyContent:'center',
+          
         }}>
-        <Grid container justifyContent="center">
           <Progress activeStep={activeStep - 1}  ></Progress>
-        </Grid>
         <Stage stage={stage}></Stage>
         <br />
         <Stars status={status}></Stars>

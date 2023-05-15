@@ -56,6 +56,7 @@ export default function Register() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [vowels, setVowels] = React.useState([]);
   const [level, setLevel] = React.useState([]);
+  
   const style = {
     position: 'absolute',
     top: '50%',
