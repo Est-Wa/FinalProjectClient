@@ -1,5 +1,5 @@
 
-import { IconButton } from '@mui/material';
+import { Box, IconButton } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
 import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
@@ -25,5 +25,5 @@ function IconComponent({ status }) {
 export default function stars(props) {
     let status = []
     status = props.status;
-    return status.map(s => <IconComponent status={s} />)
+    return <Box>{status.map((s, i) => <IconComponent key={i} status={s} />)}</Box> 
 }

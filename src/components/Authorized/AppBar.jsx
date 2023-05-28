@@ -7,12 +7,10 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import {AuthContext} from '../../context/authContext'
@@ -56,7 +54,7 @@ function ResponsiveAppBar() {
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                   
-                <img src={Logo} onClick={()=>{navigate('/home')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
+                <img src={Logo} alt='logo' onClick={()=>{navigate('/')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

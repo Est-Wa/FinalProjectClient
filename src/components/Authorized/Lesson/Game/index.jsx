@@ -4,16 +4,14 @@ import Stars from './Stars'
 import FirstStage from './FirstStage'
 import Progress from './Progress'
 import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import { AuthContext } from '../../../../context/authContext'
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import SecondStage from "./SecondStage";
 import ThirdStage from './ThirdStage'
 import { LessonContext } from "../../../../context/lessonContext";
 
 const gradeDict = { 'great': 5, 'ok': 3, 'pass': 1, 'fail': 0, '': 0 };
 
-export default function (props) {
+export default function Game(props) {
 
   function Stage(props) {
     switch (props.stage) {
@@ -29,7 +27,6 @@ export default function (props) {
   const { stage } = props;
   const [status, setStatus] = useState(['', '', '', '', '', '', '', '', '', ''])
   const [activeStep, setActiveStep] = useState(1);
-  const { user } = useContext(AuthContext)
   const {setSuccess,updateSuccess,nextStage} = useContext(LessonContext)
 
   async function handleFinishStage(success) {
@@ -46,19 +43,18 @@ export default function (props) {
   }
 
   return (
-    activeStep != 11 ?
+    activeStep !== 11 ?
       <Box
         style={{   
-          margin:'auto' , 
           width:'100%',
-          display:'grid',
+          display:'flex',
           justifyContent:'center',
-          
+          flexDirection:'column',
+          alignItems:'center',         
         }}>
-          <Progress activeStep={activeStep - 1}  ></Progress>
-        <Stage stage={stage}></Stage>
-        <br />
-        <Stars status={status}></Stars>
+        <Progress activeStep={activeStep - 1}/>
+        <Stage stage={stage}/>
+        <Stars status={status}/>
       </Box> : <>Game is finished</>
   )
 }

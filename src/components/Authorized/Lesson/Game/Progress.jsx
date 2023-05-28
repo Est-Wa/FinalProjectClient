@@ -13,8 +13,6 @@ export default function ProgressMobileStepper(props) {
       steps={10}
       position="static"
       activeStep={activeStep}
-      sx={{ maxWidth: 400, flexGrow: 1, }}
-      
     />
   );
 }
