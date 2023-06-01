@@ -47,7 +47,7 @@ function ResponsiveAppBar() {
         <AppBar position="sticky" >
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                <img src={Logo} onClick={()=>{navigate('/home')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
+                <img src={Logo} onClick={()=>{navigate('/')}} style={{width:'20%',height:'20%',marginBottom:'2%'}}></img>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

@@ -14,17 +14,11 @@ import { AuthContext } from '../../../context/authContext'
 import { useNavigate } from "react-router-dom";
 
 
-
-
 const steps = [' רישום למערכת', 'פרטים אישיים', 'בחירת ניקוד', 'עדכון רמה'];
-
-
-
 
 
 export default function Login() {
     const navigate = useNavigate();
-
 
 
     const { LogedIn, setLogedIn,login } = useContext(AuthContext)
@@ -37,7 +31,7 @@ export default function Login() {
     const submit = async () => {
         handleClose();
         setLogedIn(true);
-        navigate()
+        navigate('/')
         await login(username, password)
     }
     const style = {

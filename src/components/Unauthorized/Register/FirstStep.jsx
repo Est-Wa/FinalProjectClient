@@ -7,7 +7,10 @@ import FormControl from '@mui/material/FormControl';
 import Box from '@mui/material/Box';
 
 
+
+
 export default function FirstStep(props) {
+
   const { setPassword, setUserName, setEmailAddress, handleNext, userName, emailAddress, password } = props;
   const [error, setError] = React.useState(false)
   const handleSubmit = (event) => {
@@ -42,6 +45,7 @@ export default function FirstStep(props) {
         </Grid>
         <Grid item xs={7} >
           <TextField
+            type='password'
             required
             id="password"
             name="password"
@@ -57,6 +61,7 @@ export default function FirstStep(props) {
         </Grid>
         <Grid item xs={7}>
           <TextField
+            type='password'
             id="verifyPassword"
             name="verifyPassword"
             label="אימות סיסמא"
@@ -83,13 +88,13 @@ export default function FirstStep(props) {
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
 
-      <Button
-        variant="contained"
-        onClick={handleSubmit}
-        sx={{ mt: 3, ml: 1 }}
-      >
-        {'הבא'}
-      </Button>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{ mt: 3, ml: 1 }}
+        >
+          {'הבא'}
+        </Button>
       </Box>
     </FormControl>
   );

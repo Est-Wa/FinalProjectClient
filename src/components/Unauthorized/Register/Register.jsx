@@ -14,13 +14,13 @@ import { useContext } from "react";
 import { AuthContext } from '../../../context/authContext'
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Login from '../Login/Login'
 
 const steps = [' רישום למערכת', 'פרטים אישיים', 'בחירת ניקוד', 'עדכון רמה'];
 
 export default function Register() {
 
-  const register = async (token) => {
-    let lesson;
+  const register = async () => {
     try {
       const res = await axios.post("http://localhost:3600/api/auth/register",
         {
@@ -32,11 +32,12 @@ export default function Register() {
           student_firstName: studentFirstName,
           student_lastName: studentLastName,
           birth_date: birthDate || null,
-          gender: gender != '' || null
+          gender: gender != '' || null,
+          vowelsForLesson: vowels,
+          vowelsForLevel: level
         }
       )
-      console.log(res);
-      await login(userName, password);
+      setRegistered(true);
     }
     catch (err) {
       console.log(err)
@@ -56,7 +57,8 @@ export default function Register() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [vowels, setVowels] = React.useState([]);
   const [level, setLevel] = React.useState([]);
-  
+  const [registered, setRegistered] = React.useState(false)
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -135,19 +137,21 @@ export default function Register() {
     setActiveStep(activeStep - 1);
   };
 
-  const { LogedIn, setLogedIn, logout, token, login } = useContext(AuthContext)
+  const {setLogedIn, login } = useContext(AuthContext)
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const closeStepper = async () => {
     handleClose();
+    await register();
     setLogedIn(true);
-    navigate()
-    await register(token);
+    navigate('/')
+    await login(userName, password)
   }
 
   return (
+    !registered &&
     <>
       <Button style={{ margin: '10px', color: '#DB3349', backgroundColor: 'white' }} id='lgnBtn' variant="contained" onClick={handleOpen}>הרשמה</Button>
       <Modal

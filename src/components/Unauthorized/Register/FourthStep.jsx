@@ -32,19 +32,19 @@ export default function FourthStep({ handleBack, handleFinish, level, setLevel }
 
       <Grid container spacing={10} >
         <Grid item xs={12} sm={1}>
-          <Button key={1} style={{ fontSize: 'xx-large' }} variant={level.includes(1) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(1)}>א&#1464;</Button>
+          <Button key={1} style={{ fontSize: 'xx-large' }} variant={level.includes(1) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(1)}>א&#1460;</Button>
         </Grid>
         <Grid item xs={12} sm={1}>
-          <Button key={2} style={{ fontSize: 'xx-large' }} variant={level.includes(2) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(2)}>א&#1460;</Button>
+          <Button key={2} style={{ fontSize: 'xx-large' }} variant={level.includes(2) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(2)}>א&#1461;</Button>
         </Grid>
         <Grid item xs={12} sm={1}>
-          <Button key={3} style={{ fontSize: 'xx-large' }} variant={level.includes(3) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(3)}>א&#1461;</Button>
+          <Button key={3} style={{ fontSize: 'xx-large' }} variant={level.includes(3) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(3)}>א&#1462;</Button>
         </Grid>
         <Grid item xs={12} sm={1}>
-          <Button key={4} style={{ fontSize: 'xx-large' }} variant={level.includes(4) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(4)}>א&#1462;</Button>
+          <Button key={4} style={{ fontSize: 'xx-large' }} variant={level.includes(4) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(4)}>א&#1463;</Button>
         </Grid>
         <Grid item xs={12} sm={1}>
-          <Button key={5} style={{ fontSize: 'xx-large' }} variant={level.includes(5) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(5)}>א&#1463;</Button>
+          <Button key={5} style={{ fontSize: 'xx-large' }} variant={level.includes(5) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(5)}>א&#1464;</Button>
         </Grid>
         <Grid item xs={12} sm={1}>
           <Button key={6} style={{ fontSize: 'xx-large' }} variant={level.includes(6) ? 'contained' : 'outlined'} size="large" onClick={() => handleButtonVariantChange(6)}>או&#1465;</Button>

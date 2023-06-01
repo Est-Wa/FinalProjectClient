@@ -16,7 +16,6 @@ export const AuthContextProvider = ({ children }) => {
         const res = await axios.post("http://localhost:3600/api/auth/login",{ user_name: username, password: password });
         setUser(res.data.user);
         setToken(res.data.accessToken);
-        console.log(token);
     };
 
     const logout = () => {

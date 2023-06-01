@@ -65,7 +65,7 @@ export default function ActionAreaCard(props) {
                             height: 300,
                             width: 300
                         }}
-                        image={`/kiwi.jpg`}
+                        image={`http://localhost:3600/images/${image.path}`}
                         alt='kiwi'
                     />
                 </Card>
