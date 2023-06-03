@@ -10,7 +10,10 @@ import { AuthContext } from '../../../../../context/authContext'
 import { useContext, useEffect, useState } from "react";
 
 
-
+function shuffle(array) {
+  const shuffledArray = array.sort((a, b) => 0.5 - Math.random());
+  return shuffledArray;
+}
 async function getWords(userId, token) {
   let withImg = true;
   let res
@@ -29,7 +32,7 @@ async function getWords(userId, token) {
 
   let k = 0
   while (i < wordsArray.length && i < 30) {
-    const subArray = [];
+    let subArray = [];
     let j = 0;
     while (j < 3 && i < wordsArray.length) {
       subArray.push(wordsArray[i]);
@@ -38,7 +41,7 @@ async function getWords(userId, token) {
     }
     if (wordWithImages[k]) {
       subArray.push(wordWithImages[k].word)
-      //shuffle
+      subArray = shuffle(subArray)
       imagesArray.push(wordWithImages[k++])
     }
     else {
