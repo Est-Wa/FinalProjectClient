@@ -24,7 +24,7 @@ export default function ActionAreaCard(props) {
                     break;
             }
             if(activeStep == 10){
-                handleFinishStage(status)
+                handleFinishStage()
             }
             setActiveStep(activeStep + 1);
         }

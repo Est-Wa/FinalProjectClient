@@ -8,6 +8,7 @@ import { useContext, useState } from "react";
 import SecondStage from "./SecondStage";
 import ThirdStage from './ThirdStage'
 import { LessonContext } from "../../../../context/lessonContext";
+import StageFinished from "./StageFinished";
 
 const gradeDict = { 'great': 5, 'ok': 3, 'pass': 1, 'fail': 0, '': 0 };
 
@@ -24,26 +25,25 @@ export default function Game(props) {
     }
   }
 
-  const { stage } = props;
   const [status, setStatus] = useState(['', '', '', '', '', '', '', '', '', ''])
   const [activeStep, setActiveStep] = useState(1);
-  const {setSuccess,updateSuccess,nextStage} = useContext(LessonContext)
+  const {success,updateSuccess,stage} = useContext(LessonContext)
 
-  async function handleFinishStage(success) {
-    let res = 0
-    success.forEach(s => {
-      res += gradeDict[s]
+  async function handleFinishStage() {
+    let tmp = 0;
+    status.forEach(s => {
+      tmp += gradeDict[s]
     });
-    res /= 10;
-    res = Math.round(res)
-    alert('finished the stage😂😊😂❤')
-    setSuccess(res)
-    await updateSuccess()
-    await nextStage()
+    tmp /= 10;
+    tmp = Math.round(tmp)
+    await updateSuccess(tmp)
   }
 
   return (
     activeStep !== 11 ?
+    <>
+    <Progress activeStep={activeStep - 1}/>
+
       <Box
         style={{   
           width:'100%',
@@ -52,9 +52,9 @@ export default function Game(props) {
           flexDirection:'column',
           alignItems:'center',         
         }}>
-        <Progress activeStep={activeStep - 1}/>
         <Stage stage={stage}/>
         <Stars status={status}/>
-      </Box> : <>Game is finished</>
+      </Box></> : 
+    <StageFinished res={success}></StageFinished>
   )
 }

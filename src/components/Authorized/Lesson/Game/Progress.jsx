@@ -1,18 +1,19 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
-import Button from '@mui/material/Button';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { Box } from '@mui/material';
 
 export default function ProgressMobileStepper(props) {
+  
   const {activeStep} = props
   return (
+    <Box sx={{width:'50%',position:'relative', right:'35%'}}>
     <MobileStepper
       variant="progress"
-      steps={10}
-      position="static"
-      activeStep={activeStep}
+      steps={11}
+      position='static'
+      activeStep={activeStep}      
+      sx={{ maxWidth: 700,}}
     />
+    </Box>
   );
 }

@@ -5,29 +5,14 @@
 import React from "react";
 import Game from "./Game";
 import { useState, useEffect, useContext } from "react";
-import { AuthContext } from '../../../context/authContext'
 import axios from 'axios'
+import { LessonContext } from "../../../context/lessonContext";
 
-async function getStage(token) {
-    let res
-    try {
-        res = await axios.get(`http://localhost:3600/api/lesson/stage`,{headers:{Authorization:`Bearer ${token}`}})
-    }
-    catch (err) {
-        console.log(err)
-    }
-    return res
-}
-
-export default function () {
-    const { token } = useContext(AuthContext)
-
-    const [stage, setStage] = useState();
+export default function Lesson() {
+ const {getStage,stage} = useContext(LessonContext)
     useEffect(() => {
         async function fetchData() {
-            const res = await getStage(token);
-            console.log('The current stage is:' + res.data.current_stage)
-            setStage(res.data.current_stage)
+            await getStage();
         }
         fetchData()
     }, [])
