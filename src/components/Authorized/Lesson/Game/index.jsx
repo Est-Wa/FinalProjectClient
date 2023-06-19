@@ -9,6 +9,7 @@ import SecondStage from "./SecondStage";
 import ThirdStage from './ThirdStage'
 import { LessonContext } from "../../../../context/lessonContext";
 import StageFinished from "./StageFinished";
+import HebrewKeyboard from "./FourthStage/Question";
 
 const gradeDict = { 'great': 5, 'ok': 3, 'pass': 1, 'fail': 0, '': 0 };
 
@@ -22,6 +23,8 @@ export default function Game(props) {
         return <SecondStage></SecondStage>
         case 3:
           return <ThirdStage status={status} setActiveStep={setActiveStep} activeStep={activeStep} setStatus={setStatus} handleFinishStage={handleFinishStage}></ThirdStage>
+        case 4:
+          return <HebrewKeyboard></HebrewKeyboard>
     }
   }
 

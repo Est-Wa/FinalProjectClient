@@ -14,17 +14,16 @@ function shuffle(array) {
   const shuffledArray = array.sort((a, b) => 0.5 - Math.random());
   return shuffledArray;
 }
-async function getWords(userId, token) {
-  let withImg = true;
+async function getWords(token) {
   let res
   try {
-    res = await axios.get(`http://localhost:3600/api/lesson/words?withImg=${withImg}`, { headers: { Authorization: `Bearer ${token}` } })
+    res = await axios.get(`http://localhost:3600/api/lesson/words?withImg=true`, { headers: { Authorization: `Bearer ${token}` } })
   }
   catch (err) {
     console.log(err)
   }
-  const wordsArray = res.data.words
-  let wordWithImages = res.data.wordsWithImgs
+  const wordsArray = res.data.words;
+  const wordWithImages = res.data.wordsWithImgs;
   // wordWithImages = wordWithImages.filter((image,i)=>{i<10})
   const subArrays = [];
   const imagesArray = [];
@@ -67,13 +66,13 @@ async function getWords(userId, token) {
 
 function CustomizedSteppers(props) {
   const { setStatus, status, activeStep, setActiveStep, handleFinishStage } = props
-  const { user, token } = useContext(AuthContext)
+  const { token } = useContext(AuthContext)
   const [words, setWords] = useState();
   const [images, setImages] = useState();
   console.log(images)
   useEffect(() => {
     async function fetchData() {
-      const res = await getWords(user.user_id, token);
+      const res = await getWords(token);
       console.log('this is my result' + res)
       setWords(res.words)
       setImages(res.images)

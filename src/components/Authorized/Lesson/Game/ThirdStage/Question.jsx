@@ -47,11 +47,11 @@ export default function ActionAreaCard(props) {
     console.log(locations[0]);
     console.log(sizes[0]);
 
-    const { activeStep, setActiveStep, setStatus, status, voice, handleFinishStage, words } = props
+    const { activeStep, setActiveStep, setStatus, status, sound, handleFinishStage, words } = props
     let trialNumber = 1;
 
     function checkAnswer(word) {
-        if (word === voice.word) {
+        if (word === sound) {
             switch (trialNumber) {
                 case (1):
                     setStatus([...status].map((s, i) => i == activeStep - 1 ? 'great' : s));
@@ -80,10 +80,10 @@ export default function ActionAreaCard(props) {
 
     return (
         <Card sx={{ width: '70vw' }}>
-<ReactAudioPlayer
-                src={voice.voice}
+            <ReactAudioPlayer
+                src={`http://localhost:3600/audio/${sound}.mp3`}
                 controls
-            /> 
+            />
             {words.map((word, i) => <Button variant='outlined' onClick={() => checkAnswer(word)} key={i} sx={{ ...locations[i], ...sizes[i], position: 'relative', textAlign: 'center', margin: '10px', display: 'block' }}>{word}</Button>)}
         </Card>
     )
